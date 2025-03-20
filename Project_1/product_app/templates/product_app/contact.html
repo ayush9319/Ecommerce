@@ -1,0 +1,59 @@
+{% extends 'product_app/base.html' %}
+{% load static %}
+{% block title %} Contact Us {% endblock %}
+
+{% block content %}
+<div class="bg-white-200 min-h-screen flex items-center justify-center py-10">
+    <div class="max-w-4xl w-full bg-white p-8 rounded-2xl shadow-lg">
+        <h2 class="text-3xl font-semibold text-gray-800 text-center mb-6">Contact Us</h2>
+        <p class="text-gray-600 text-center mb-8">Have any questions? We'd love to hear from you.</p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Contact Form -->
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-medium">Your Name</label>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" >
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">Email Address</label>
+                    <input type="email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">Message</label>
+                    <textarea rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Write your message here..."></textarea>
+                </div>
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">Send Message</button>
+            </form>
+
+            <!-- Contact Details -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-500 text-white p-3 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2.003 5.884A2 2 0 014 4h12a2 2 0 011.997 1.884L18 6v6a2 2 0 01-1.884 1.997L16 14H4a2 2 0 01-1.997-1.884L2 12V6l.003-.116zM4 6v6h12V6H4zm10 2a2 2 0 110 4 2 2 0 010-4z" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700">ayus.pandey05@gmail.com</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-500 text-white p-3 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm4 3a2 2 0 114 0 2 2 0 01-4 0zm7 6H5v-1h8v1zm0-2H5v-1h8v1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700">+91 9319462347</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-500 text-white p-3 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zM8 7a2 2 0 114 0 2 2 0 01-4 0zm4 6H8v-1h4v1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700">1650/26 Street-1, Gurgaon, India</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

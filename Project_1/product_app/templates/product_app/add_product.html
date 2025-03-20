@@ -1,0 +1,63 @@
+{% extends 'product_app/base.html' %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto bg-indigo-100 shadow-lg rounded-lg p-10 mt-10 border border-gray-200">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Add a New Product </h2>
+    <h1>{{ product.name }}</h1>
+    <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        <input value="{{ product.id }}" name="product_id" type="hidden">
+        <div>
+            <label class="block text-gray-700 font-semibold">Product Name:</label>
+            <input type="text" value="{{product.name}}" name="name" placeholder="Product name" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold">Description:</label>
+            <input type="text" value="{{product.descr}}" name="descr" placeholder="Description" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold">Price:</label>
+            <input type="text" value="{{product.price}}" name="price" placeholder="Price" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold">Stock:</label>
+            <input type="text" value="{{product.stock}}" name="stock" placeholder="Stock" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold">Category:</label>
+            <select name="category"  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                <option value="" disabled selected>Select a category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Home Furniture">Home Furniture</option>
+            </select>
+        </div>
+
+
+        <div>
+            <label class="block text-gray-700 font-semibold">Image:</label>
+            
+            <!-- Show existing image preview -->
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-32 h-32 object-cover mb-2">
+                <!-- Store the existing image path in a hidden field -->
+                <input type="hidden" name="existing_image" value="{{ product.image.url }}">
+            {% endif %}
+            
+            <!-- File input (user can choose to upload a new image) -->
+            <input type="file" name="image" class="w-full px-4 py-3 border border-gray-300 rounded-md">
+        </div>
+        
+
+        <div class="text-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-md shadow-md transition duration-300">Add Product</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

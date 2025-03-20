@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <header>
+        <div class="navbar">
+            <div class="nav-logo border"><a href="{% url 'home' %}?customer_id={{ customer.id }}">Ayush Sales</a></div>
+            <!-- <div class="icon">
+                <i class="fa-solid fa-bars"></i>
+            </div> -->
+            <div class="relative group">
+                <button class="icon text-white hover:text-blue-400"><i class="fa-solid fa-bars"></i></button>
+                <div class="absolute left-0 hidden w-48 mt-2 bg-white shadow-md rounded-md group-hover:block">
+                    <a href="{% url 'category_products' %}?category=Electronics&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Electronics</a>
+                    <a href="{% url 'category_products' %}?category=Clothing&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Clothing</a>
+                    <a href="{% url 'category_products' %}?category=Home Furniture&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Home & Furniture</a>
+                    <a href="{% url 'category_products' %}?category=assecories&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Assecories</a>
+                </div>
+            </div>
+            <form action="{% url 'product_list' %}" method="GET" class="nav-search border">
+                <input type="text" name="q" placeholder="What are you looking for?" class="form-control search-input" value="{{ query }}">
+                <button type="submit" class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+            
+            <div class="nav-address border">
+                <p class="add-first">Deliver to </p>
+                <div class="add-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p class="add-sec">India</p>
+                </div> 
+            </div>
+            <div class="login-user border">
+                {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'logout' %}" > {{ user }}</a>
+                {% elif customer %}
+                    <a href="{% url 'profile' %}?customer_id={{ customer.id }}" >
+                        {{ customer.firstname }} </a>
+                {% else %}
+                    <a href="{% url 'login' %}" >
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                {% endif %}
+            </div>
+            
+            <div class="cart border">
+                <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+            </div>
+        </div>
+    </header>
+            {% if user.is_authenticated and user.is_superuser %}
+            <p class="text-center text-xl font-bold text-black px-4 py-2 rounded-lg shadow-md">
+                Welcome, Admin!
+            </p>
+            
+        {% endif %}
+
+
+    <!-- <img src="{% static 'images/pic1.webp' %}" alt="Static Image"> -->
+        
+    <main class="p-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <footer class="bg-gray-900 text-white py-12 px-6">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <h2 class="text-xl font-bold">Ayush Sales</h2>
+                <p class="text-gray-400">Building the future, one step at a time.</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-lg">Quick Links</h3>
+                <ul class="mt-3 space-y-2">
+                    <li><a href="{% url 'about' %}?customer_id={{ customer.id }}" class="text-gray-400 hover:text-white">About Us</a></li>
+                    <li><a href="{% url 'contact' %}?customer_id={{ customer.id }}" class="text-gray-400 hover:text-white">Contact </a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-semibold text-lg">Connect with Us</h3>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="text-gray-500 text-sm text-center mt-6">&copy; 2025 Ayush Sales. All rights reserved.</p>
+    </footer>
+</body>
+</html>

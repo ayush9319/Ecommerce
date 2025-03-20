@@ -1,0 +1,29 @@
+{% extends 'product_app/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+        
+<div class="container mx-auto mt-8 px-4 flex flex-col items-center">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
+        <!-- Product items will be dynamically inserted here -->
+    </div>
+    {% if user.is_authenticated and user.is_superuser %}
+    <div class="flex space-x-4">
+        <a href="{% url 'add_product' %}?customer_id={{ customer.id }}" class="bg-blue-500  mb-8 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+            Add Product
+        </a>
+        <a href="{% url 'product_list' %}?customer_id={{ customer.id }}" class="bg-green-500 mb-8 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+            View Products
+        </a>
+        <a href="{% url 'admin_page' %}?customer_id={{ customer.id }}" class="bg-green-500 mb-8 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+            Admin Page
+        </a>
+    {% else %}
+        <a href="{% url 'product_list' %}?customer_id={{ customer.id }}" class="bg-green-500 mb-8 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+            View Products
+        </a>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}
