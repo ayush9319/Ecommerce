@@ -17,13 +17,21 @@
             <!-- <div class="icon">
                 <i class="fa-solid fa-bars"></i>
             </div> -->
-            <div class="relative group">
-                <button class="icon text-white hover:text-blue-400"><i class="fa-solid fa-bars"></i></button>
-                <div class="absolute left-0 hidden w-48 mt-2 bg-white shadow-md rounded-md group-hover:block">
-                    <a href="{% url 'category_products' %}?category=Electronics&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Electronics</a>
-                    <a href="{% url 'category_products' %}?category=Clothing&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Clothing</a>
-                    <a href="{% url 'category_products' %}?category=Home Furniture&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Home & Furniture</a>
-                    <a href="{% url 'category_products' %}?category=assecories&customer_id={{ customer.id }}" class="block text-black px-4 py-2 hover:bg-blue-100">Assecories</a>
+            <div x-data="{ open: false }" class="relative">
+                <button @click="open = !open" class="icon text-white hover:text-blue-400">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            
+                <div x-show="open" @click.away="open = false"
+                    class="absolute left-0 w-48 mt-2 bg-white shadow-md rounded-md">
+                    <a href="{% url 'category_products' %}?category=Electronics&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Electronics</a>
+                    <a href="{% url 'category_products' %}?category=Clothing&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Clothing</a>
+                    <a href="{% url 'category_products' %}?category=Home Furniture&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Home & Furniture</a>
+                    <a href="{% url 'category_products' %}?category=assecories&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Accessories</a>
                 </div>
             </div>
             <form action="{% url 'product_list' %}" method="GET" class="nav-search border">
@@ -37,12 +45,12 @@
                 <p class="add-first">Deliver to </p>
                 <div class="add-icon">
                     <i class="fa-solid fa-location-dot"></i>
-                    <p class="add-sec">India</p>
+                    <p class="add-sec">Gurgaon</p>
                 </div> 
             </div>
             <div class="login-user border">
                 {% if user.is_authenticated and user.is_superuser %}
-                    <a href="{% url 'logout' %}" > {{ user }}</a>
+                    <a href="{% url 'logout' %}" > {{ user }} </a>
                 {% elif customer %}
                     <a href="{% url 'profile' %}?customer_id={{ customer.id }}" >
                         {{ customer.firstname }} </a>
@@ -52,22 +60,34 @@
                     </a>
                 {% endif %}
             </div>
-            
+            {% if user.is_authenticated and user.is_superuser %}
+            <div class="relative inline-block text-left">
+                <button id="dropdownButton" class="cart border p-2 rounded-md ">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg">
+                    <a href="{% url 'add_product' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-blue-600 hover:bg-blue-100">Add Product</a>
+                    <a href="{% url 'product_list' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-green-600 hover:bg-green-100">View Products</a>
+                    <a href="{% url 'admin_page' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-100">Admin Page</a>
+                </div>
+            </div>
+            {% elif customer %}
             <div class="cart border">
                 <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
             </div>
+            {% else%}
+            <div class="cart border">
+                <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+            </div>
+            {% endif %}
         </div>
     </header>
             {% if user.is_authenticated and user.is_superuser %}
             <p class="text-center text-xl font-bold text-black px-4 py-2 rounded-lg shadow-md">
-                Welcome, Admin!
+                Welcome, BOSS !
             </p>
-            
-        {% endif %}
+            {% endif %}
 
-
-    <!-- <img src="{% static 'images/pic1.webp' %}" alt="Static Image"> -->
-        
     <main class="p-8">
         {% block content %}
         {% endblock %}
@@ -100,5 +120,21 @@
         </div>
         <p class="text-gray-500 text-sm text-center mt-6">&copy; 2025 Ayush Sales. All rights reserved.</p>
     </footer>
+    <script>
+        
+        document.getElementById('dropdownButton').addEventListener('click', function () {
+            let menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('hidden');
+        });
+    
+        document.addEventListener('click', function (event) {
+            let button = document.getElementById('dropdownButton');
+            let menu = document.getElementById('dropdownMenu');
+            if (!button.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </body>
 </html>

@@ -19,7 +19,6 @@ def sign_up(request):
         password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
         hashed_password = make_password(password)
-        print("---",image)
         if password != confirm_password:
             messages.error(request, "Password doesn't match ")
             return redirect("signup")
