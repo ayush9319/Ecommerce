@@ -42,7 +42,7 @@
                 Admin Page
             </a> -->
         {% else %}
-            <a href="{% url 'product_list' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+            <a href="{% url 'product_list' %}?customer_id={{ customer.id }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
             View Products
             </a>
         {% endif %}

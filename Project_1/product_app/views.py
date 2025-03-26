@@ -204,3 +204,4 @@ def cart(request):
         
         return render(request, "product_app/cart.html", {"products": products, "customer": customer})
     
+    

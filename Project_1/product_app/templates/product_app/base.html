@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -36,10 +35,12 @@
             </div>
             <form action="{% url 'product_list' %}" method="GET" class="nav-search border">
                 <input type="text" name="q" placeholder="What are you looking for?" class="form-control search-input" value="{{ query }}">
+                <input type="hidden" name="customer_id" value="{{ customer.id }}">
                 <button type="submit" class="search-icon">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
+            
             
             <div class="nav-address border">
                 <p class="add-first">Deliver to </p>
@@ -70,14 +71,6 @@
                     <a href="{% url 'product_list' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-green-600 hover:bg-green-100">View Products</a>
                     <a href="{% url 'admin_page' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-100">Admin Page</a>
                 </div>
-            </div>
-            {% elif customer %}
-            <div class="cart border">
-                <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
-            </div>
-            {% else%}
-            <div class="cart border">
-                <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
             </div>
             {% endif %}
         </div>
