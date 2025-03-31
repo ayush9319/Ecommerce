@@ -1,0 +1,76 @@
+{% extends 'product_app/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+        
+    <!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
+        <!-- Product items will be dynamically inserted here -->
+    <!-- </div>  -->    
+
+<!-- Image Slider -->
+<div class="relative overflow-hidden w-full">
+    <div class="flex transition-transform duration-500 ease-in-out" id="slider-wrapper">
+        <div class="flex w-full" id="slider">
+            {% for i in "12345" %}
+                <div class="w-full flex-shrink-0">
+                    <a href="{% url 'product_desc' %}">
+                        <img src="{% static 'images/pic'|add:i|add:'.webp' %}" alt="Slide {{ i }}" class="w-full">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <button id="prev" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
+        &#10094;
+    </button>
+    <button id="next" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
+        &#10095;
+    </button>
+</div>
+
+<!-- Conditional Buttons for Admin and Users -->
+<div class="container mx-auto mt-8 px-4 flex flex-col items-center">
+    <div class="flex space-x-4 mt-6">
+        {% if user.is_authenticated and user.is_superuser %}
+            <!-- <a href="{% url 'add_product' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+                Add Product
+            </a>
+            <a href="{% url 'product_list' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+                View Products
+            </a>
+            <a href="{% url 'admin_page' %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+                Admin Page
+            </a> -->
+        {% else %}
+            <a href="{% url 'product_list' %}?customer_id={{ customer.id }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+            View Products
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const slider = document.getElementById('slider');
+    const slides = document.querySelectorAll('#slider div');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+
+    let index = 0;
+    const totalSlides = slides.length;
+
+    function updateSlide() {
+        slider.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    next.addEventListener('click', () => {
+        index = (index + 1) % totalSlides;
+        updateSlide();
+    });
+
+    prev.addEventListener('click', () => {
+        index = (index - 1 + totalSlides) % totalSlides;
+        updateSlide();
+    });
+</script>
+{% endblock %}

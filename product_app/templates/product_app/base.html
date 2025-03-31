@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <header>
+        <div class="navbar">
+            <div class="nav-logo border"><a href="{% url 'home' %}?customer_id={{ customer.id }}">Ayush Sales</a></div>
+            <!-- <div class="icon">
+                <i class="fa-solid fa-bars"></i>
+            </div> -->
+            <div x-data="{ open: false }" class="relative">
+                <button @click="open = !open" class="icon text-white hover:text-blue-400">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            
+                <div x-show="open" @click.away="open = false"
+                    class="absolute left-0 w-48 mt-2 bg-white shadow-md rounded-md">
+                    <a href="{% url 'category_products' %}?category=Electronics&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Electronics</a>
+                    <a href="{% url 'category_products' %}?category=Clothing&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Clothing</a>
+                    <a href="{% url 'category_products' %}?category=Home Furniture&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Home & Furniture</a>
+                    <a href="{% url 'category_products' %}?category=assecories&customer_id={{ customer.id }}"
+                        class="block text-black px-4 py-2 hover:bg-blue-100">Accessories</a>
+                </div>
+            </div>
+            <form action="{% url 'product_list' %}" method="GET" class="nav-search border">
+                <input type="text" name="q" placeholder="What are you looking for?" class="form-control search-input" value="{{ query }}">
+                <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                <button type="submit" class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+            
+            
+            <div class="nav-address border">
+                <p class="add-first">Deliver to </p>
+                <div class="add-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p class="add-sec">Gurgaon</p>
+                </div> 
+            </div>
+            <div class="login-user border">
+                {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'logout' %}" > {{ user }} </a>
+                {% elif customer %}
+                    <a href="{% url 'profile' %}?customer_id={{ customer.id }}" >
+                        {{ customer.firstname }} </a>
+                {% else %}
+                    <a href="{% url 'login' %}" >
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                {% endif %}
+            </div>
+            {% if user.is_authenticated and user.is_superuser %}
+            <div class="relative inline-block text-left">
+                <button id="dropdownButton" class="cart border p-2 rounded-md ">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg">
+                    <a href="{% url 'add_product' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-blue-600 hover:bg-blue-100">Add Product</a>
+                    <a href="{% url 'product_list' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-green-600 hover:bg-green-100">View Products</a>
+                    <a href="{% url 'admin_page' %}?customer_id={{ customer.id }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-100">Admin Page</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+            {% if user.is_authenticated and user.is_superuser %}
+            <p class="text-center text-xl font-bold text-black px-4 py-2 rounded-lg shadow-md">
+                Welcome, BOSS !
+            </p>
+            {% endif %}
+
+    <main class="p-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <footer class="bg-gray-900 text-white py-12 px-6">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <h2 class="text-xl font-bold">Ayush Sales</h2>
+                <p class="text-gray-400">Building the future, one step at a time.</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-lg">Quick Links</h3>
+                <ul class="mt-3 space-y-2">
+                    <li><a href="{% url 'about' %}?customer_id={{ customer.id }}" class="text-gray-400 hover:text-white">About Us</a></li>
+                    <li><a href="{% url 'contact' %}?customer_id={{ customer.id }}" class="text-gray-400 hover:text-white">Contact </a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-semibold text-lg">Connect with Us</h3>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="text-gray-500 text-sm text-center mt-6">&copy; 2025 Ayush Sales. All rights reserved.</p>
+    </footer>
+    <script>
+        
+        document.getElementById('dropdownButton').addEventListener('click', function () {
+            let menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('hidden');
+        });
+    
+        document.addEventListener('click', function (event) {
+            let button = document.getElementById('dropdownButton');
+            let menu = document.getElementById('dropdownMenu');
+            if (!button.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</body>
+</html>
