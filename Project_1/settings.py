@@ -125,10 +125,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
 ALLOWED_HOSTS = ['ecommerce-0g8d.onrender.com', '127.0.0.1', 'localhost']
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
