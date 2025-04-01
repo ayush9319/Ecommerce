@@ -127,7 +127,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-ALLOWED_HOSTS = ['ecommerce-0g8d.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'ecommerce-3-phck.onrender.com',  # Add this domain
+    'ecommerce-0g8d.onrender.com',
+    '127.0.0.1',
+    'localhost'
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
