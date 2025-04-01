@@ -130,6 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ALLOWED_HOSTS = [
     'ecommerce-3-phck.onrender.com',  # Add this domain
     'ecommerce-0g8d.onrender.com',
+    '.onrender.com',
     '127.0.0.1',
     'localhost'
 ]
@@ -170,3 +171,6 @@ EMAIL_HOST_USER = os.environ.get("EM_HOST")
 EMAIL_HOST_PASSWORD = os.environ.get("EM_PASSWORD")
 DEFAULT_FROM_EMAIL = os.environ.get("EM_ID")
 
+import os
+
+PORT = os.getenv("PORT", "8000")
